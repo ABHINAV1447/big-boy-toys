@@ -216,7 +216,7 @@ const serviceCenters = [
         address: "90210 Rodeo Drive, Beverly Hills, CA",
         phone: "+1 (310) 555-0198",
         specialties: ["Bugatti Certified", "Exotic Detailing"],
-        image: "https://images.unsplash.com/photo-1632245889027-8a060d297a78?q=80&w=2670&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1599912027806-cfec9f5944b6?q=80&w=2670&auto=format&fit=crop"
     },
     {
         id: 2,
