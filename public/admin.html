@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Big Boy Toys</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Outfit:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .admin-container {
+            padding: 120px 20px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+
+        .admin-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        .admin-title span {
+            color: var(--accent-primary);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .data-list {
+            display: grid;
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .data-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .data-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .data-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+        }
+
+        .data-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .data-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .data-item h4 {
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-primary);
+        }
+
+        .data-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .data-item .message-text {
+            color: var(--text-primary);
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-text">BBT</span>
+            <span class="logo-sub">Premium</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#collection">Collection</a></li>
+            <li><a href="service-centers.html">Services</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="index.html" class="btn-primary">Back to Site</a>
+        <div class="mobile-toggle">
+            <i data-lucide="menu"></i>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-title">
+                <h1>Admin <span>Dashboard</span></h1>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Bookings Section -->
+            <div>
+                <h2 class="section-heading">Recent Bookings</h2>
+                <div class="data-list" id="bookings-list">
+                    <p style="color: var(--text-secondary); text-align: center;">Loading bookings...</p>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div>
+                <h2 class="section-heading">Contact Messages</h2>
+                <div class="data-list" id="messages-list">
+                    <p style="color: var(--text-secondary); text-align: center;">Loading messages...</p>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div>
+                <h2 class="section-heading">Job Applications</h2>
+                <div class="data-list" id="applications-list">
+                    <p style="color: var(--text-secondary); text-align: center;">Loading applications...</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; border-top: 1px solid var(--glass-border); padding-top: 40px;">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <h2>Inventory <span>Manager</span></h2>
+                </div>
+                <button id="add-car-btn" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Add New
+                    Vehicle</button>
+            </div>
+
+            <!-- Add/Edit form, initially hidden -->
+            <div id="car-form-wrapper"
+                style="display: none; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 30px; border-radius: 12px; margin-bottom: 40px;">
+                <h3 id="form-title" class="section-heading" style="margin-bottom: 20px;">Add New Vehicle</h3>
+                <form id="car-form" style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
+
+                    <div style="grid-column: 1 / -1; display: flex; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Car ID
+                                (e.g. mclaren-p1)</label>
+                            <input type="text" id="carId" required
+                                style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit';">
+                        </div>
+                        <div style="flex: 1;">
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Name</label>
+                            <input type="text" id="carName" required
+                                style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit';">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Category</label>
+                        <select id="carCategory" required
+                            style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.8); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit';">
+                            <option value="super-sport">Super Sport</option>
+                            <option value="suv">Luxury SUV</option>
+                            <option value="electric">Electric</option>
+                            <option value="classic">Classic</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Price</label>
+                        <input type="text" id="carPrice" required
+                            style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit';">
+                    </div>
+
+                    <div style="grid-column: 1 / -1;">
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Tagline</label>
+                        <input type="text" id="carTagline"
+                            style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit';">
+                    </div>
+
+                    <div style="grid-column: 1 / -1;">
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Description</label>
+                        <textarea id="carDescription" rows="3"
+                            style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Outfit'; resize: vertical;"></textarea>
+                    </div>
+
+                    <div
+                        style="grid-column: 1 / -1; display: flex; gap: 1rem; justify-content: flex-end; margin-top: 10px;">
+                        <button type="button" id="cancel-form-btn" class="btn-secondary"
+                            style="padding: 10px 20px;">Cancel</button>
+                        <button type="submit" class="btn-primary" style="padding: 10px 20px;">Save Vehicle</button>
+                    </div>
+                </form>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table
+                    style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border);">
+                    <thead style="background: rgba(0,0,0,0.5); border-bottom: 1px solid var(--glass-border);">
+                        <tr>
+                            <th style="padding: 15px 20px; font-family: 'Orbitron'; color: var(--accent-primary);">ID
+                            </th>
+                            <th style="padding: 15px 20px; font-family: 'Orbitron'; color: var(--accent-primary);">Name
+                            </th>
+                            <th style="padding: 15px 20px; font-family: 'Orbitron'; color: var(--accent-primary);">
+                                Category</th>
+                            <th style="padding: 15px 20px; font-family: 'Orbitron'; color: var(--accent-primary);">Price
+                            </th>
+                            <th
+                                style="padding: 15px 20px; font-family: 'Orbitron'; color: var(--accent-primary); width: 150px;">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-list">
+                        <tr>
+                            <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-secondary);">
+                                Loading inventory...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAdminData();
+            fetchInventory();
+        });
+
+        // --- Inventory Management Logic ---
+        let currentCars = {};
+        let isEditing = false;
+
+        const formWrapper = document.getElementById('car-form-wrapper');
+        const addCarBtn = document.getElementById('add-car-btn');
+        const cancelBtn = document.getElementById('cancel-form-btn');
+        const carForm = document.getElementById('car-form');
+
+        addCarBtn.addEventListener('click', () => {
+            isEditing = false;
+            document.getElementById('form-title').innerText = "Add New Vehicle";
+            document.getElementById('carId').disabled = false; // Allow ID entry
+            carForm.reset();
+            formWrapper.style.display = 'block';
+            formWrapper.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            formWrapper.style.display = 'none';
+        });
+
+        carForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById('carId').value;
+            const payload = {
+                id: id,
+                name: document.getElementById('carName').value,
+                category: document.getElementById('carCategory').value,
+                price: document.getElementById('carPrice').value,
+                tagline: document.getElementById('carTagline').value,
+                description: document.getElementById('carDescription').value,
+            };
+
+            const method = isEditing ? 'PUT' : 'POST';
+            const url = isEditing ? `/api/cars/${id}` : '/api/cars';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert(data.message);
+                    formWrapper.style.display = 'none';
+                    fetchInventory(); // Reload list
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (err) {
+                console.error("Error saving vehicle:", err);
+                alert("Failed to save vehicle.");
+            }
+        });
+
+        async function fetchInventory() {
+            try {
+                const response = await fetch('/api/cars');
+                const data = await response.json();
+
+                if (data.success) {
+                    currentCars = data.cars;
+                    renderInventory();
+                }
+            } catch (err) {
+                console.error('Error fetching inventory:', err);
+                document.getElementById('inventory-list').innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center; color: #ff4444;">Error loading inventory.</td></tr>';
+            }
+        }
+
+        function renderInventory() {
+            const listContainer = document.getElementById('inventory-list');
+            listContainer.innerHTML = '';
+
+            const carEntries = Object.entries(currentCars);
+            if (carEntries.length === 0) {
+                listContainer.innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center; color: var(--text-secondary);">No vehicles in inventory.</td></tr>';
+                return;
+            }
+
+            carEntries.forEach(([id, car]) => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                tr.innerHTML = `
+                    <td style="padding: 15px 20px; color: var(--text-secondary);">${id}</td>
+                    <td style="padding: 15px 20px; font-weight: 500;">${car.name}</td>
+                    <td style="padding: 15px 20px; color: var(--text-secondary); text-transform: capitalize;">${car.category.replace('-', ' ')}</td>
+                    <td style="padding: 15px 20px; color: var(--accent-primary);">${car.price}</td>
+                    <td style="padding: 15px 20px; display: flex; gap: 10px;">
+                        <button onclick="editCar('${id}')" style="background: transparent; border: 1px solid var(--text-secondary); color: var(--text-primary); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Edit</button>
+                        <button onclick="deleteCar('${id}')" style="background: transparent; border: 1px solid #ff4444; color: #ff4444; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Delete</button>
+                    </td>
+                `;
+                listContainer.appendChild(tr);
+            });
+        }
+
+        window.editCar = function (id) {
+            const car = currentCars[id];
+            if (!car) return;
+
+            isEditing = true;
+            document.getElementById('form-title').innerText = `Edit: ${car.name}`;
+
+            document.getElementById('carId').value = id;
+            document.getElementById('carId').disabled = true; // Prevent changing ID
+
+            document.getElementById('carName').value = car.name || '';
+            document.getElementById('carCategory').value = car.category || 'super-sport';
+            document.getElementById('carPrice').value = car.price || '';
+            document.getElementById('carTagline').value = car.tagline || '';
+            document.getElementById('carDescription').value = car.description || '';
+
+            formWrapper.style.display = 'block';
+            formWrapper.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.deleteCar = async function (id) {
+            if (confirm(`Are you sure you want to delete ${currentCars[id].name}?`)) {
+                try {
+                    const response = await fetch(`/api/cars/${id}`, { method: 'DELETE' });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        fetchInventory(); // Reload list
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (err) {
+                    console.error("Error deleting vehicle:", err);
+                    alert("Failed to delete vehicle.");
+                }
+            }
+        }
+
+        // --- Core Admin Logic ---
+        async function fetchAdminData() {
+            try {
+                const response = await fetch('/api/admin/data');
+                const data = await response.json();
+
+                if (data.success) {
+                    renderBookings(data.bookings);
+                    renderMessages(data.messages);
+                    renderApplications(data.applications);
+                } else {
+                    alert('Failed to load admin data');
+                }
+            } catch (error) {
+                console.error('Error fetching admin data:', error);
+                document.getElementById('bookings-list').innerHTML = '<p style="color: #ff4444;">Error loading data.</p>';
+                document.getElementById('messages-list').innerHTML = '<p style="color: #ff4444;">Error loading data.</p>';
+                document.getElementById('applications-list').innerHTML = '<p style="color: #ff4444;">Error loading data.</p>';
+            }
+        }
+
+        function renderBookings(bookings) {
+            const listContainer = document.getElementById('bookings-list');
+            listContainer.innerHTML = '';
+
+            if (bookings.length === 0) {
+                listContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: left;">No bookings found.</p>';
+                return;
+            }
+
+            // Reverse to show newest first
+            [...bookings].reverse().forEach(booking => {
+                const dateCheck = new Date(booking.date).toLocaleString();
+                const item = document.createElement('div');
+                item.className = 'data-item';
+
+                // Determine badge color based on status
+                let statusColor = 'var(--text-secondary)';
+                if (booking.status === 'Approved') statusColor = '#4caf50';
+                else if (booking.status === 'Completed') statusColor = '#2196f3';
+                else if (booking.status === 'Rejected') statusColor = '#ff4444';
+                else if (booking.status === 'Pending Confirmation') statusColor = 'var(--accent-primary)';
+
+                item.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <h4>${booking.carModel}</h4>
+                        <span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: ${statusColor}; border: 1px solid ${statusColor};">
+                            ${booking.status}
+                        </span>
+                    </div>
+                    <p><strong>Name:</strong> ${booking.name}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${booking.email}" style="color: var(--accent-primary)">${booking.email}</a></p>
+                    <p><strong>Phone:</strong> ${booking.phone}</p>
+                    <p><strong>Preferred Date:</strong> ${booking.preferredDate}</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-secondary)">Submitted: ${dateCheck}</p>
+                    
+                    <div style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button onclick="updateBookingStatus(${booking.id}, 'Approved')" style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4caf50; color: #4caf50; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">Approve</button>
+                        <button onclick="updateBookingStatus(${booking.id}, 'Completed')" style="background: rgba(33, 150, 243, 0.1); border: 1px solid #2196f3; color: #2196f3; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">Complete</button>
+                        <button onclick="updateBookingStatus(${booking.id}, 'Rejected')" style="background: rgba(255, 68, 68, 0.1); border: 1px solid #ff4444; color: #ff4444; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">Reject</button>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        window.updateBookingStatus = async function (id, status) {
+            try {
+                const response = await fetch(`/api/bookings/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    fetchAdminData(); // Refresh lists
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (err) {
+                console.error("Error updating booking status:", err);
+            }
+        }
+
+        function renderMessages(messages) {
+            const listContainer = document.getElementById('messages-list');
+            listContainer.innerHTML = '';
+
+            if (messages.length === 0) {
+                listContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: left;">No messages found.</p>';
+                return;
+            }
+
+            // Reverse to show newest first
+            [...messages].reverse().forEach(message => {
+                const dateCheck = new Date(message.date).toLocaleString();
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <h4>${message.subject}</h4>
+                    <p><strong>Name:</strong> ${message.name}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${message.email}" style="color: var(--accent-primary)">${message.email}</a></p>
+                    <div class="message-text">"${message.message}"</div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-secondary)">Received: ${dateCheck}</p>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function renderApplications(applications) {
+            const listContainer = document.getElementById('applications-list');
+            listContainer.innerHTML = '';
+
+            if (!applications || applications.length === 0) {
+                listContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: left;">No applications found.</p>';
+                return;
+            }
+
+            [...applications].reverse().forEach(app => {
+                const dateCheck = new Date(app.date).toLocaleString();
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <h4>${app.role}</h4>
+                    <p><strong>Name:</strong> ${app.name}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${app.email}" style="color: var(--accent-primary)">${app.email}</a></p>
+                    <p><strong>Phone:</strong> ${app.phone}</p>
+                    <div class="message-text" style="white-space: pre-wrap;">"${app.coverLetter}"</div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-secondary)">Applied: ${dateCheck}</p>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+    </script>
+</body>
+
+</html>

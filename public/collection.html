@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection | Big Boy Toys</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Collection | Big Boy Toys</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Outfit:wght@300;400;500;700&display=swap"
+            rel="stylesheet">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+    </head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-text">BBT</span>
+                <span class="logo-sub">Premium</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#collection">Collection</a></li>
+            <li><a href="service-centers.html">Services</a></li>
+            if (sortType === 'price-low') {
+            filteredCars.sort((a, b) => parsePrice(a[1].price) - parsePrice(b[1].price));
+            } else if (sortType === 'price-high') {
+            filteredCars.sort((a, b) => parsePrice(b[1].price) - parsePrice(a[1].price));
+            }
+
+            container.innerHTML = '';
+
+            if (filteredCars.length === 0) {
+            container.innerHTML = '<p>No vehicles match your search.</p>';
+            return;
+            }
+
+            // Render
+            filteredCars.forEach(([id, car]) => {
+            const card = document.createElement('div');
+            card.className = 'bento-item medium';
+            card.style.height = '400px';
+
+            card.innerHTML = `
+            <img src="${car.images.main}" alt="${car.name}">
+            <div class="content">
+                <h3>${car.name}</h3>
+                <p>${car.price} - ${car.tagline}</p>
+                <a href="details.html?id=${id}" class="link-arrow">View Details -></a>
+            </div>
+            `;
+            container.appendChild(card);
+            });
+            }
+
+            // Event Listeners
+            searchInput.addEventListener('input', renderGrid);
+            categorySelect.addEventListener('change', renderGrid);
+            sortSelect.addEventListener('change', renderGrid);
+
+            // Initial Render
+            renderGrid();
+            });
+            </script>
+
+            <style>
+                .collection-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                    gap: 2rem;
+                    padding: 2rem 0;
+                }
+            </style>
+</body>
+
+</html>
