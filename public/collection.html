@@ -9,91 +9,263 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link <!DOCTYPE html>
-    <html lang="en">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Outfit:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Collection | Big Boy Toys</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Outfit:wght@300;400;500;700&display=swap"
-            rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="style.css">
+        .filters-bar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-        <!-- Icons -->
-        <script src="https://unpkg.com/lucide@latest"></script>
-    </head>
+        .search-wrapper {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .filter-select {
+            padding: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            min-width: 160px;
+        }
+
+        .filter-select option {
+            background: #0a0a0a;
+            color: #fff;
+        }
+    </style>
+</head>
 
 <body>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
-            <a href="index.html">
-                <span class="logo-text">BBT</span>
-                <span class="logo-sub">Premium</span>
+            <a href="index.html" style="text-decoration: none;">
+                <span class="logo-text"
+                    style="color: var(--accent-primary); font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem;">BBT</span>
+                <span class="logo-sub"
+                    style="color: #fff; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Premium</span>
             </a>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#collection">Collection</a></li>
+            <li><a href="index.html#collection" class="active">Collection</a></li>
             <li><a href="service-centers.html">Services</a></li>
-            if (sortType === 'price-low') {
-            filteredCars.sort((a, b) => parsePrice(a[1].price) - parsePrice(b[1].price));
-            } else if (sortType === 'price-high') {
-            filteredCars.sort((a, b) => parsePrice(b[1].price) - parsePrice(a[1].price));
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div id="auth-status">
+            <a href="signin.html" class="btn-primary">Sign In</a>
+        </div>
+        <div class="mobile-toggle">
+            <i data-lucide="menu"></i>
+        </div>
+    </nav>
+
+    <main class="collection-page"
+        style="padding-top: 120px; min-height: 100vh; background: var(--bg-primary); padding-left: 5%; padding-right: 5%;">
+        <div class="section-header" style="margin-bottom: 3rem;">
+            <h1 style="font-family: 'Orbitron'; font-size: 2.5rem; color: #fff; margin-bottom: 1rem;">The <span
+                    style="color: var(--accent-primary);">Collection</span></h1>
+            <p style="color: var(--text-secondary);">Filter and sort through our catalog of high-performance machines.
+            </p>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="search-wrapper">
+                <i data-lucide="search"></i>
+                <input type="text" id="search-input" placeholder="Search by model or brand...">
+            </div>
+
+            <select id="category-filter" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="super-sport">Super Sport</option>
+                <option value="suv">Luxury SUV</option>
+                <option value="electric">Electric Future</option>
+                <option value="classic">Classic Icons</option>
+            </select>
+
+            <select id="sort-filter" class="filter-select">
+                <option value="featured">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+            </select>
+        </div>
+
+        <!-- Grid -->
+        <div id="car-grid" class="collection-grid">
+            <p style="color: var(--text-secondary); text-align: center; width: 100%;">Loading our collection...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: #050505; border-top: 1px solid var(--glass-border); padding: 4rem 5%; margin-top: 4rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div class="logo">
+                <span class="logo-text"
+                    style="color: var(--accent-primary); font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem;">BBT</span>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; max-width: 300px;">
+                    Redefining the luxury car buying experience through innovation and excellence.</p>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                &copy; 2026 Big Boy Toys. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        let carData = {};
+
+        async function init() {
+            // Check auth status
+            const user = JSON.parse(localStorage.getItem('user'));
+            const authStatus = document.getElementById('auth-status');
+            if (user) {
+                authStatus.innerHTML = '<a href="profile.html" class="btn-primary">Profile</a>';
             }
 
-            container.innerHTML = '';
+            try {
+                // Get category from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryParam = urlParams.get('category');
+                if (categoryParam) {
+                    document.getElementById('category-filter').value = categoryParam;
+                }
 
-            if (filteredCars.length === 0) {
-            container.innerHTML = '<p>No vehicles match your search.</p>';
-            return;
+                // Fetch cars
+                const response = await fetch('/api/cars');
+                const data = await response.json();
+                carData = data.cars;
+
+                renderGrid();
+            } catch (error) {
+                console.error('Error fetching cars:', error);
+                document.getElementById('car-grid').innerHTML = '<p style="color: #ff4444; width: 100%; text-align: center;">Failed to load cars. Please try again later.</p>';
+            }
+        }
+
+        const gridContainer = document.getElementById('car-grid');
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const sortFilter = document.getElementById('sort-filter');
+
+        function parsePrice(priceStr) {
+            return parseInt(priceStr.replace(/[^0-9]/g, ''));
+        }
+
+        function renderGrid() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const categoryTerm = categoryFilter.value;
+            const sortTerm = sortFilter.value;
+
+            // Filter
+            let filtered = Object.entries(carData).filter(([id, car]) => {
+                const matchesSearch = car.name.toLowerCase().includes(searchTerm) ||
+                    car.tagline.toLowerCase().includes(searchTerm);
+                const matchesCategory = categoryTerm === 'all' || car.category === categoryTerm;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Sort
+            if (sortTerm === 'price-low') {
+                filtered.sort((a, b) => parsePrice(a[1].price) - parsePrice(b[1].price));
+            } else if (sortTerm === 'price-high') {
+                filtered.sort((a, b) => parsePrice(b[1].price) - parsePrice(a[1].price));
             }
 
             // Render
-            filteredCars.forEach(([id, car]) => {
-            const card = document.createElement('div');
-            card.className = 'bento-item medium';
-            card.style.height = '400px';
+            gridContainer.innerHTML = '';
 
-            card.innerHTML = `
-            <img src="${car.images.main}" alt="${car.name}">
-            <div class="content">
-                <h3>${car.name}</h3>
-                <p>${car.price} - ${car.tagline}</p>
-                <a href="details.html?id=${id}" class="link-arrow">View Details -></a>
-            </div>
-            `;
-            container.appendChild(card);
-            });
+            if (filtered.length === 0) {
+                gridContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: center; width: 100%; padding: 3rem;">No vehicles match your search.</p>';
+                return;
             }
 
-            // Event Listeners
-            searchInput.addEventListener('input', renderGrid);
-            categorySelect.addEventListener('change', renderGrid);
-            sortSelect.addEventListener('change', renderGrid);
+            filtered.forEach(([id, car]) => {
+                const card = document.createElement('div');
+                card.className = 'bento-item';
+                card.style.background = 'var(--glass-bg)';
+                card.style.border = '1px solid var(--glass-border)';
+                card.style.borderRadius = '16px';
+                card.style.overflow = 'hidden';
+                card.style.position = 'relative';
+                card.style.height = '400px';
 
-            // Initial Render
-            renderGrid();
+                card.innerHTML = `
+                    <img src="${car.images.main}" alt="${car.name}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;">
+                    <div class="overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);"></div>
+                    <div class="content" style="position: absolute; bottom: 0; left: 0; padding: 2rem; width: 100%;">
+                        <h3 style="font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem;">${car.name}</h3>
+                        <p style="color: var(--accent-primary); font-family: 'Orbitron'; font-weight: 500; margin-bottom: 0.5rem;">${car.price}</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">${car.tagline}</p>
+                        <a href="details.html?id=${id}" class="link-arrow" style="color: #fff; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">View Details <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
             });
-            </script>
 
-            <style>
-                .collection-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                    gap: 2rem;
-                    padding: 2rem 0;
-                }
-            </style>
+            lucide.createIcons();
+        }
+
+        searchInput.addEventListener('input', renderGrid);
+        categoryFilter.addEventListener('change', renderGrid);
+        sortFilter.addEventListener('change', renderGrid);
+
+        init();
+    </script>
 </body>
 
 </html>
