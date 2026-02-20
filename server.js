@@ -216,7 +216,7 @@ const serviceCenters = [
         address: "90210 Rodeo Drive, Beverly Hills, CA",
         phone: "+1 (310) 555-0198",
         specialties: ["Bugatti Certified", "Exotic Detailing"],
-        image: "https://images.unsplash.com/photo-1622180203374-9524a54b734d?q=80&w=2670&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1632245889027-8a060d297a78?q=80&w=2670&auto=format&fit=crop"
     },
     {
         id: 2,
@@ -224,7 +224,7 @@ const serviceCenters = [
         address: "305 Ocean Drive, Miami Beach, FL",
         phone: "+1 (305) 555-8821",
         specialties: ["Performance Tuning", "Hypercar Storage"],
-        image: "https://images.unsplash.com/photo-1597813083391-76850d99ba29?q=80&w=2670&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2670&auto=format&fit=crop"
     },
     {
         id: 3,
@@ -232,7 +232,7 @@ const serviceCenters = [
         address: "Number 1 Mayfair, London, UK",
         phone: "+44 20 7946 0111",
         specialties: ["Classic Restoration", "Bespoke Interiors"],
-        image: "https://images.unsplash.com/photo-1518778643354-9457ee634dfd?q=80&w=2670&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2670&auto=format&fit=crop"
     }
 ];
 
